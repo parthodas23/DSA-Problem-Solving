@@ -1,3 +1,12 @@
+// let obj = {};
+// obj['50'] = 'a'; // []--> use for keys
+// obj['2'] = 'b';
+// obj['100'] = 'c';
+
+// console.log(obj);
+// // { '2': 'b', '50': 'a', '100': 'c' } -->  Why ascending Order?
+// // Keys that are integers (numeric strings) come first, in ascending order
+
 // function freqCount(arr1, arr2) {
 //   for (let i = 0; i < arr1.length; i++) {
 //     let a = arr2[i] == arr1[i] ** 2;
@@ -12,55 +21,41 @@
 // freqCount([1, 2, 3], [1, 4, 9]);
 
 function same(arr1, arr2) {
-  // Step 1: Check if both arrays have the same length
+  // check edge case
   if (arr1.length !== arr2.length) {
     return false;
   }
 
-  // Step 2: Count values in arr1
-  let count1 = {};
+  // Count both arr number using obj
+  let Count1 = {};
   for (let i = 0; i < arr1.length; i++) {
-    let value = arr1[i];
-    if (count1[value] === undefined) {
-      count1[value] = 1;
+    let num = arr1[i];
+    if (!Count1[num]) {
+      Count1[num] = 1;
     } else {
-      count1[value]++;
+      Count1[num] += 1;
     }
   }
-  console.log(count1);
-  // Step 3: Count values in arr2
-  let count2 = {};
+  // console.log(Count1);
+
+  let Count2 = {};
   for (let i = 0; i < arr2.length; i++) {
-    let value = arr2[i];
-    if (count2[value] === undefined) {
-      count2[value] = 1;
+    let num = arr2[i];
+    if (!Count2[num]) {
+      Count2[num] = 1;
     } else {
-      count2[value]++;
+      Count2[num] += 1;
     }
   }
+  // console.log(Count2);
 
-  // Step 4: Loop through count1 using for...in to access keys directly
-  for (let num in count1) {
-    // console.log(num);
-    let square = num * num;
-
-    // Check if square exists in count2
-    if (count2[square] === undefined) {
-      return false;
-    }
-    console.log(count2[square]);
-
-    // Check if frequency matches
-    if (count2[square] !== count1[num]) {
+  for (let num in Count1) {
+    let squired = num * num;
+    if (Count1[num] !== Count2[squired]) {
       return false;
     }
   }
-
-  // Step 5: Everything matches
   return true;
 }
 
-// Test cases
-console.log(same([1, 2, 3, 2], [9, 1, 4, 4])); // true
-// console.log(same([1, 2, 3], [1, 9])); // false
-// console.log(same([1, 2, 1], [4, 4, 1])); // false
+console.log(same([3, 2, 1, 2], [4, 9, 3, 4]));
